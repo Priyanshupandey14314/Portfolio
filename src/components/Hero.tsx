@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   FiArrowDown,
   FiGithub,
@@ -59,10 +59,7 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [codeVisible, setCodeVisible] = useState(0);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const spotlightX = useSpring(mouseX, { damping: 30, stiffness: 100 });
-  const spotlightY = useSpring(mouseY, { damping: 30, stiffness: 100 });
+  const spotlightRef = useRef<HTMLDivElement>(null);
 
   // Typing effect
   useEffect(() => {
@@ -95,15 +92,33 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
-  // Mouse spotlight
+  // Mouse spotlight — pure DOM with requestAnimationFrame, no competing motion values
   useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+    const el = spotlightRef.current;
+    if (!el) return;
+    let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+    let rafId: number;
+
+    const onMove = (e: MouseEvent) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
     };
-    window.addEventListener("mousemove", handleMouse);
-    return () => window.removeEventListener("mousemove", handleMouse);
-  }, [mouseX, mouseY]);
+
+    const animate = () => {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      el.style.left = `${currentX}px`;
+      el.style.top = `${currentY}px`;
+      rafId = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    rafId = requestAnimationFrame(animate);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden grid-bg">
@@ -112,10 +127,21 @@ export default function Hero() {
       <div className="orb orb-blue w-80 h-80 bottom-[-50px] right-[-50px]" style={{ animationDuration: '20s' }} />
       <div className="orb orb-cyan w-64 h-64 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30" />
 
-      {/* Mouse spotlight */}
-      <motion.div
-        className="spotlight pointer-events-none z-0"
-        style={{ x: spotlightX, y: spotlightY }}
+      {/* Mouse spotlight — pure DOM, no framer spring */}
+      <div
+        ref={spotlightRef}
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          width: 600,
+          height: 600,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)",
+          pointerEvents: "none",
+          transform: "translate(-50%, -50%)",
+          zIndex: 0,
+          willChange: "left, top",
+        }}
       />
 
       {/* Floating tech icons */}
@@ -147,7 +173,7 @@ export default function Hero() {
       ))}
 
       {/* Main content */}
-      <div className="section-wrapper relative z-10 py-32 w-full">
+      <div className="section-wrapper relative z-10 py-25 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Text content */}
           <div>
@@ -156,9 +182,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="mb-6"
+              className="mb-4"
             >
-              <span className="availability-badge">
+              <span className="availability-badge mt-0">
                 <span className="availability-dot" />
                 Open for Internships &amp; Opportunities
               </span>
@@ -169,9 +195,9 @@ export default function Hero() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-slate-400 font-mono text-sm mb-3 tracking-widest uppercase"
+              className="text-slate-89 font-mono text-md tracking-widest uppercase"
             >
-              Hello World 👋, I am
+              Hello World, I am
             </motion.p>
 
             {/* Name */}
@@ -179,7 +205,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-5xl md:text-7xl font-black tracking-tight text-white mb-4 leading-none"
+              className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 leading-none"
             >
               Priyanshu
               <span className="block gradient-text text-glow">Pandey</span>

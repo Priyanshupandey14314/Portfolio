@@ -53,14 +53,17 @@ export default function Navbar() {
       >
         <div className="section-wrapper flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center gap-2 group"
+          >
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-white font-bold text-sm group-hover:shadow-lg group-hover:shadow-violet-500/30 transition-all duration-300">
               P
             </div>
             <span className="font-bold text-lg tracking-tight text-white">
               Priyanshu<span className="text-violet-400">.</span>
             </span>
-          </a>
+          </button>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">

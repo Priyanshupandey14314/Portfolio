@@ -2,14 +2,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  SiReact, SiNextdotjs, SiTailwindcss, SiJavascript, SiTypescript, SiHtml5, SiCss3,
-  SiNodedotjs, SiPython, SiDjango, SiSpring, SiExpress,
+  SiReact, SiNextdotjs, SiTailwindcss, SiJavascript, SiTypescript, SiHtml5,
+  SiNodedotjs, SiPython, SiDjango, SiSpringboot, SiDotnet,
   SiMongodb, SiMysql, SiPostgresql, SiFirebase, SiRedis,
-  SiGit, SiGithub, SiDocker, SiLinux, SiPostman, SiVercel, SiVisualstudiocode,
+  SiGit, SiGithub, SiDocker, SiLinux, SiPostman, SiVercel,
   SiTensorflow, SiScikitlearn,
 } from "react-icons/si";
 import { FaJava, FaAws } from "react-icons/fa";
-import { SiDotnet } from "react-icons/si";
 
 type Skill = { name: string; icon: React.ElementType; color: string; level: number };
 type Category = {
@@ -31,7 +30,7 @@ const categories: Category[] = [
       { name: "TypeScript", icon: SiTypescript, color: "#3178C6", level: 75 },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", level: 92 },
       { name: "HTML5", icon: SiHtml5, color: "#E34F26", level: 95 },
-      { name: "CSS3", icon: SiCss3, color: "#1572B6", level: 90 },
+      { name: "CSS3", icon: SiHtml5, color: "#1572B6", level: 90 },
     ],
   },
   {
@@ -42,8 +41,8 @@ const categories: Category[] = [
       { name: "Node.js", icon: SiNodedotjs, color: "#339933", level: 80 },
       { name: "Python", icon: SiPython, color: "#3776AB", level: 85 },
       { name: "Django", icon: SiDjango, color: "#092E20", level: 70 },
-      { name: "Spring Boot", icon: SiSpring, color: "#6DB33F", level: 65 },
-      { name: "Express.js", icon: SiExpress, color: "#ffffff", level: 78 },
+      { name: "Spring Boot", icon: SiSpringboot, color: "#6DB33F", level: 65 },
+      { name: "Express.js", icon: SiNodedotjs, color: "#ffffff", level: 78 },
       { name: ".NET / C#", icon: SiDotnet, color: "#512BD4", level: 65 },
     ],
   },
@@ -81,7 +80,7 @@ const categories: Category[] = [
       { name: "Linux", icon: SiLinux, color: "#FCC624", level: 72 },
       { name: "Postman", icon: SiPostman, color: "#FF6C37", level: 88 },
       { name: "Vercel", icon: SiVercel, color: "#ffffff", level: 85 },
-      { name: "VS Code", icon: SiVisualstudiocode, color: "#007ACC", level: 95 },
+      { name: "VS Code", icon: SiVercel, color: "#007ACC", level: 95 },
       { name: "AWS", icon: FaAws, color: "#FF9900", level: 55 },
     ],
   },

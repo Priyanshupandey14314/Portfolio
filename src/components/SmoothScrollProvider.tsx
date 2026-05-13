@@ -1,26 +1,35 @@
 "use client";
 import { useEffect } from "react";
-import Lenis from "@studio-freight/lenis";
 
+/**
+ * No external scroll library — native scrolling is always 60fps.
+ * We only intercept anchor clicks to add smooth offset scrolling.
+ */
 export default function SmoothScrollProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 2,
-    });
+    const handleClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest("a");
+      if (!anchor) return;
+      const href = anchor.getAttribute("href");
+      if (!href || !href.startsWith("#") || href === "#") return;
 
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      const navbarHeight = 72;
+      const top =
+        target.getBoundingClientRect().top + window.scrollY - navbarHeight;
+
+      window.scrollTo({ top, behavior: "smooth" });
     };
 
-    const handle = requestAnimationFrame(raf);
-    return () => cancelAnimationFrame(handle);
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
   }, []);
 
   return <>{children}</>;

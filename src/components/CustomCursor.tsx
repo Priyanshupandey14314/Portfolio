@@ -1,70 +1,114 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { gsap } from "gsap";
 
 export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const followerRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  const springX = useSpring(mouseX, { damping: 25, stiffness: 300, mass: 0.5 });
-  const springY = useSpring(mouseY, { damping: 25, stiffness: 300, mass: 0.5 });
-
-  const followerX = useSpring(mouseX, { damping: 35, stiffness: 150, mass: 0.8 });
-  const followerY = useSpring(mouseY, { damping: 35, stiffness: 150, mass: 0.8 });
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(pointer: coarse)").matches) return; // skip on touch devices
+
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    // Immediately snap the dot to the mouse with GSAP's quickSetter for zero-lag
+    const setDotX = gsap.quickSetter(dot, "x", "px");
+    const setDotY = gsap.quickSetter(dot, "y", "px");
+
+    // Ring follows with a slight lag via gsap.to
+    const onMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Dot is instant — no lag
+      setDotX(mouseX);
+      setDotY(mouseY);
+
+      // Ring lags behind for the nice trail effect
+      gsap.to(ring, {
+        x: mouseX,
+        y: mouseY,
+        duration: 0.18,
+        ease: "power2.out",
+        overwrite: true,
+      });
     };
 
-    const handleMouseEnterLink = () => {
-      cursorRef.current?.classList.add("scale-150");
-      followerRef.current?.classList.add("scale-150", "opacity-80");
+    // Scale up on interactive elements
+    const onEnter = () => {
+      gsap.to(dot, { scale: 2.5, duration: 0.25, ease: "power2.out" });
+      gsap.to(ring, { scale: 1.8, opacity: 0.9, duration: 0.25, ease: "power2.out" });
+    };
+    const onLeave = () => {
+      gsap.to(dot, { scale: 1, duration: 0.25, ease: "power2.out" });
+      gsap.to(ring, { scale: 1, opacity: 0.6, duration: 0.25, ease: "power2.out" });
     };
 
-    const handleMouseLeaveLink = () => {
-      cursorRef.current?.classList.remove("scale-150");
-      followerRef.current?.classList.remove("scale-150", "opacity-80");
+    window.addEventListener("mousemove", onMove, { passive: true });
+
+    const addListeners = () => {
+      const targets = document.querySelectorAll("a, button, [data-cursor]");
+      targets.forEach((el) => {
+        el.addEventListener("mouseenter", onEnter);
+        el.addEventListener("mouseleave", onLeave);
+      });
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
+    addListeners();
 
-    const interactables = document.querySelectorAll("a, button, [data-cursor]");
-    interactables.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnterLink);
-      el.addEventListener("mouseleave", handleMouseLeaveLink);
-    });
+    // Re-add whenever DOM changes (e.g. modal opens)
+    const observer = new MutationObserver(addListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousemove", onMove);
+      observer.disconnect();
     };
-  }, [mouseX, mouseY]);
+  }, []);
 
   return (
     <>
-      {/* Dot cursor */}
-      <motion.div
-        ref={cursorRef}
-        className="custom-cursor w-3 h-3 rounded-full bg-white transition-transform duration-200"
+      {/* Main dot — instant response */}
+      <div
+        ref={dotRef}
+        aria-hidden="true"
         style={{
-          x: springX,
-          y: springY,
-          translateX: "-50%",
-          translateY: "-50%",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 10,
+          height: 10,
+          borderRadius: "50%",
+          background: "white",
+          pointerEvents: "none",
+          zIndex: 9999,
+          transform: "translate(-50%, -50%)",
+          willChange: "transform",
         }}
       />
-      {/* Ring follower */}
-      <motion.div
-        ref={followerRef}
-        className="custom-cursor w-8 h-8 rounded-full border border-violet-400 opacity-60 transition-all duration-200"
+      {/* Trailing ring */}
+      <div
+        ref={ringRef}
+        aria-hidden="true"
         style={{
-          x: followerX,
-          y: followerY,
-          translateX: "-50%",
-          translateY: "-50%",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 36,
+          height: 36,
+          borderRadius: "50%",
+          border: "1.5px solid rgba(139, 92, 246, 0.7)",
+          pointerEvents: "none",
+          zIndex: 9998,
+          transform: "translate(-50%, -50%)",
+          willChange: "transform",
+          opacity: 0.6,
         }}
       />
     </>
