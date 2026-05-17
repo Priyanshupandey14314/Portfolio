@@ -5,9 +5,9 @@ import { FiSend, FiMail, FiGithub, FiLinkedin, FiTwitter, FiMapPin } from "react
 
 const socials = [
   { icon: FiGithub, label: "GitHub", href: "https://github.com/Priyanshupandey14314", handle: "@Priyanshupandey14314" },
-  { icon: FiLinkedin, label: "LinkedIn", href: "https://linkedin.com/in/priyanshu-pandey", handle: "in/priyanshu-pandey" },
+  { icon: FiLinkedin, label: "LinkedIn", href: "https://linkedin.com/in/priyanshu-pandey-604711251", handle: "in/priyanshu-pandey-604711251" },
   { icon: FiTwitter, label: "Twitter / X", href: "https://twitter.com/priyanshupandey", handle: "@priyanshupandey" },
-  { icon: FiMail, label: "Email", href: "mailto:priyanshu@example.com", handle: "priyanshu@example.com" },
+  { icon: FiMail, label: "Email", href: "mailto:priyanshun14314@gmail.com", handle: "priyanshun14314@gmail.com" },
 ];
 
 export default function Contact() {
