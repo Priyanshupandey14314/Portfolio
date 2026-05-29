@@ -176,67 +176,69 @@ export default function Hero() {
       <div className="section-wrapper relative z-10 py-25 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Text content */}
-          <div>
-            {/* Availability badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="mb-4"
-            >
-              <span className="availability-badge mt-0">
-                <span className="availability-dot" />
-                Open for Internships &amp; Opportunities
-              </span>
-            </motion.div>
+          <div className="flex flex-col gap-6 lg:gap-8">
+            {/* Top row: Profile Image & Badge */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+              {/* Profile Image */}
 
-            {/* Greeting */}
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-slate-89 font-mono text-md tracking-widest uppercase"
-            >
-              Hello World, I am
-            </motion.p>
 
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 leading-none"
-            >
-              Priyanshu
-              <span className="block gradient-text text-glow">Pandey</span>
-            </motion.h1>
+              {/* Availability badge */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="self-start sm:self-center"
+              >
+                <span className="availability-badge shadow-[0_0_15px_rgba(16,185,129,0.15)] bg-emerald-500/10 border-emerald-500/20 backdrop-blur-md">
+                  <span className="availability-dot" />
+                  Open for Internships
+                </span>
+              </motion.div>
+            </div>
 
-            {/* Typing role */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="text-xl md:text-2xl font-semibold text-slate-300 mb-6 h-8 flex items-center gap-2"
-            >
-              <span className="text-violet-400">&gt;</span>
-              <span className="font-mono">{displayText}</span>
-              <span className="w-0.5 h-6 bg-violet-400 animate-blink" />
-            </motion.div>
+            {/* Name & Title Area */}
+            <div className="flex flex-col gap-2">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="text-violet-400 font-mono text-sm md:text-base tracking-widest uppercase"
+              >
+                Hello World, I am
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="text-5xl md:text-7xl font-black tracking-tight text-white leading-tight md:leading-none"
+              >
+                Priyanshu
+                <br className="hidden md:block" />
+                <span className="gradient-text text-glow inline-block md:mt-2"> Pandey</span>
+              </motion.h1>
+
+              {/* Typing role */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="text-xl md:text-3xl font-semibold text-slate-300 h-10 flex items-center gap-3 mt-2"
+              >
+                <span className="text-cyan-400 font-mono font-bold">&gt;</span>
+                <span className="font-mono tracking-wide">{displayText}</span>
+                <span className="w-1 h-6 md:h-8 bg-cyan-400 animate-blink" />
+              </motion.div>
+            </div>
 
             {/* Tagline */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="text-slate-400 text-lg max-w-lg leading-relaxed mb-10"
+              className="text-slate-400 text-lg md:text-xl max-w-xl leading-relaxed"
             >
-              BTech CSE student building{" "}
-              <span className="text-violet-300 font-medium">scalable software</span>,{" "}
-              exploring{" "}
-              <span className="text-cyan-300 font-medium">AI systems</span>, and
-              crafting{" "}
-              <span className="text-blue-300 font-medium">elegant user experiences</span>{" "}
-              that ship.
+              BTech CSE student building <span className="text-slate-200 font-medium">scalable software</span>, exploring <span className="text-violet-300 font-medium">AI systems</span>, and crafting <span className="text-cyan-300 font-medium">elegant user experiences</span> that ship to production.
             </motion.p>
 
             {/* CTA buttons */}
@@ -244,20 +246,20 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex flex-wrap gap-3 mb-10"
+              className="flex flex-wrap gap-4 mt-4"
             >
-              <a href="#projects" className="btn-primary">
-                View Projects <FiExternalLink size={16} />
+              <a href="#projects" className="btn-primary shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)]">
+                View Projects <FiExternalLink size={18} className="ml-1" />
               </a>
               <a
                 href="/resume.pdf"
                 download
-                className="btn-secondary"
+                className="btn-secondary hover:bg-slate-800/50"
               >
-                Download Resume <FiDownload size={16} />
+                Download Resume <FiDownload size={18} className="ml-1" />
               </a>
-              <a href="#contact" className="btn-secondary">
-                Contact Me <FiMail size={16} />
+              <a href="#contact" className="btn-secondary hover:bg-slate-800/50">
+                Contact Me <FiMail size={18} className="ml-1" />
               </a>
             </motion.div>
 
@@ -308,54 +310,65 @@ export default function Hero() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden lg:block"
+            className="hidden lg:flex flex-col justify-center h-full"
           >
-            <div className="glass-card p-6 font-mono text-sm glow-purple relative overflow-hidden">
+            <div className="glass-card p-6 font-mono text-sm shadow-[0_0_40px_rgba(139,92,246,0.15)] relative overflow-hidden group hover:border-violet-500/30 transition-colors duration-500 bg-[#0d0d2b]/80 backdrop-blur-xl">
               {/* Window bar */}
-              <div className="flex items-center gap-2 mb-4 pb-4 border-b border-violet-500/10">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="ml-2 text-slate-500 text-xs">portfolio.ts</span>
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/5">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/80 shadow-[0_0_10px_rgba(244,63,94,0.4)]" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80 shadow-[0_0_10px_rgba(245,158,11,0.4)]" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80 shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500/70 text-xs">portfolio.ts</span>
+                </div>
               </div>
 
               {/* Code lines */}
-              <div className="space-y-1.5 text-sm">
-                {codeLines.map((line, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{
-                      opacity: i < codeVisible ? 1 : 0,
-                      x: i < codeVisible ? 0 : -10,
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="flex gap-4"
-                  >
-                    <span className="text-slate-600 select-none w-4 text-right">{i + 1}</span>
-                    <span
-                      className={
-                        line.includes('"') || line.includes("'")
-                          ? "text-green-400"
-                          : line.includes("const") || line.includes("true")
-                            ? "text-violet-400"
-                            : line.includes("[")
-                              ? "text-cyan-400"
-                              : "text-slate-300"
-                      }
+              <div className="space-y-2 text-sm leading-relaxed">
+                {codeLines.map((line, i) => {
+                  const isKeyword = line.includes("const") || line.includes("true");
+                  const isString = line.includes('"') || line.includes("'");
+                  const isArray = line.includes("[");
+
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{
+                        opacity: i < codeVisible ? 1 : 0,
+                        x: i < codeVisible ? 0 : -10,
+                      }}
+                      transition={{ duration: 0.4 }}
+                      className="flex gap-4 group/line hover:bg-white/5 rounded px-2 -mx-2 transition-colors duration-200"
                     >
-                      {line}
-                    </span>
-                  </motion.div>
-                ))}
+                      <span className="text-slate-600/50 select-none w-4 text-right group-hover/line:text-slate-500 transition-colors">{i + 1}</span>
+                      <span
+                        className={
+                          isString
+                            ? "text-emerald-400"
+                            : isKeyword
+                              ? "text-violet-400 font-medium"
+                              : isArray
+                                ? "text-cyan-400"
+                                : "text-slate-300"
+                        }
+                      >
+                        {line}
+                      </span>
+                    </motion.div>
+                  );
+                })}
                 {codeVisible >= codeLines.length && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="flex gap-4 mt-2"
+                    transition={{ delay: 0.5 }}
+                    className="flex gap-4 mt-4 px-2 -mx-2"
                   >
-                    <span className="text-slate-600 select-none w-4 text-right">7</span>
-                    <span className="text-cyan-400 animate-pulse text-xs mt-1">
+                    <span className="text-slate-600/50 select-none w-4 text-right">7</span>
+                    <span className="text-cyan-400/80 animate-pulse text-xs mt-1 italic">
                       // Ready to build something amazing? 🚀
                     </span>
                   </motion.div>
@@ -363,7 +376,8 @@ export default function Hero() {
               </div>
 
               {/* Decorative glow */}
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-violet-600/10 rounded-full blur-3xl" />
+              <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-violet-600/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-violet-600/20 transition-colors duration-700" />
+              <div className="absolute -top-20 -left-20 w-64 h-64 bg-cyan-600/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-cyan-600/20 transition-colors duration-700" />
             </div>
 
             {/* Stats row */}

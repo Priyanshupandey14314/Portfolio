@@ -57,12 +57,12 @@ export default function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="flex items-center gap-2 group"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-white font-bold text-sm group-hover:shadow-lg group-hover:shadow-violet-500/30 transition-all duration-300">
-              P
+            <div className="w-25 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-gray-900 font-bold text-sm group-hover:shadow-lg group-hover:shadow-violet-500/30 transition-all duration-300">
+              BlackHatter
             </div>
-            <span className="font-bold text-lg tracking-tight text-white">
+            {/* <span className="font-bold text-lg tracking-tight text-white">
               Priyanshu<span className="text-violet-400">.</span>
-            </span>
+            </span> */}
           </button>
 
           {/* Desktop nav */}
