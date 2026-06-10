@@ -1,13 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiFileText } from "react-icons/fi";
 
 const navItems = [
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
+  { label: "Metrics", href: "#metrics" },
   { label: "Projects", href: "#projects" },
+  { label: "Expertise", href: "#skills" },
   { label: "Experience", href: "#experience" },
+  { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -17,7 +19,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -26,10 +28,12 @@ export default function Navbar() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
     navItems.forEach(({ href }) => {
@@ -42,100 +46,109 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? "backdrop-blur-xl bg-[#050510]/80 border-b border-violet-500/10"
-          : ""
-          }`}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-black/80 backdrop-blur-md border-b border-zinc-800/80"
+            : "bg-transparent border-b border-transparent"
+        }`}
       >
         <div className="section-wrapper flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo & Status */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-3 group text-left"
           >
-            <div className="w-25 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-gray-900 font-bold text-sm group-hover:shadow-lg group-hover:shadow-violet-500/30 transition-all duration-300">
-              BlackHatter
-            </div>
-            {/* <span className="font-bold text-lg tracking-tight text-white">
-              Priyanshu<span className="text-violet-400">.</span>
-            </span> */}
+            <span className="font-mono text-sm tracking-tight text-white font-semibold">
+              priyanshu.pandey<span className="text-zinc-500">()</span>
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-zinc-800 bg-zinc-950 font-mono text-[10px] text-zinc-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              open to roles
+            </span>
           </button>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navItems.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${activeSection === href.slice(1)
-                  ? "text-white bg-violet-500/10"
-                  : "text-slate-400 hover:text-white"
+          <div className="hidden lg:flex items-center gap-1">
+            {navItems.map(({ label, href }) => {
+              const isActive = activeSection === href.slice(1);
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  className={`relative px-3 py-1.5 font-mono text-xs transition-colors duration-200 ${
+                    isActive ? "text-white" : "text-zinc-400 hover:text-white"
                   }`}
-              >
-                {activeSection === href.slice(1) && (
-                  <motion.span
-                    layoutId="active-pill"
-                    className="absolute inset-0 bg-violet-500/10 rounded-full border border-violet-500/20"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{label}</span>
-              </a>
-            ))}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active-line"
+                      className="absolute bottom-[-18px] left-0 right-0 h-0.5 bg-white"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {label}
+                </a>
+              );
+            })}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Resume CTA */}
+          <div className="hidden lg:flex items-center">
             <a
-              href="#contact"
-              className="btn-primary text-sm py-2 px-5"
+              href="/MyUpdatedRes.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 font-mono text-xs border border-zinc-800 bg-zinc-950 hover:bg-zinc-900 text-zinc-100 hover:text-white transition-all cursor-pointer"
             >
-              Hire Me
+              <FiFileText size={13} />
+              Resume
             </a>
           </div>
 
           {/* Mobile toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-slate-400 hover:text-white transition-colors"
+            className="lg:hidden p-2 text-zinc-400 hover:text-white transition-colors"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+            {mobileOpen ? <FiX size={20} /> : <FiMenu size={20} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-16 left-0 right-0 z-40 glass-card mx-4 mt-2 p-4 md:hidden"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-16 left-0 right-0 z-40 bg-zinc-950 border-b border-zinc-800 p-6 lg:hidden"
           >
-            {navItems.map(({ label, href }, i) => (
-              <motion.a
-                key={label}
-                href={href}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                onClick={() => setMobileOpen(false)}
-                className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-violet-500/10 rounded-xl transition-all duration-200 font-medium"
-              >
-                {label}
-              </motion.a>
-            ))}
-            <div className="mt-4 pt-4 border-t border-violet-500/10">
-              <a href="#contact" className="btn-primary w-full justify-center text-sm">
-                Hire Me
-              </a>
+            <div className="flex flex-col gap-4">
+              {navItems.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  className="font-mono text-sm text-zinc-300 hover:text-white transition-colors py-1"
+                >
+                  {label}
+                </a>
+              ))}
+              <div className="mt-4 pt-4 border-t border-zinc-900">
+                <a
+                  href="/MyUpdatedRes.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 font-mono text-xs border border-zinc-800 bg-zinc-900 text-white"
+                >
+                  <FiFileText size={14} />
+                  Download Resume
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
