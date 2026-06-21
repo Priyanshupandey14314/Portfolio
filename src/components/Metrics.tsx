@@ -48,9 +48,8 @@ export default function Metrics() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
-              className={`p-6 flex flex-col justify-between min-h-[180px] border-b border-zinc-800 lg:border-b-0 ${
-                i < metrics.length - 1 ? "lg:border-r border-zinc-800" : ""
-              } hover:bg-zinc-900/40 transition-all duration-300`}
+              className={`p-6 flex flex-col justify-between min-h-[180px] border-b border-zinc-800 lg:border-b-0 ${i < metrics.length - 1 ? "lg:border-r border-zinc-800" : ""
+                } hover:bg-zinc-900/40 transition-all duration-300`}
             >
               <div>
                 <div className="font-mono text-3xl font-extrabold text-white tracking-tight">

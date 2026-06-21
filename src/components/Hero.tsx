@@ -52,20 +52,38 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Headline */}
-            <motion.h1
-              variants={itemVariants}
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] font-sans"
-            >
-              Building scalable backend systems and intelligent software products.
-            </motion.h1>
+            {/* Profile Header & Headline */}
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row sm:items-center gap-6 mt-2">
+              <div className="relative shrink-0 group">
+                {/* Sleek rotating gradient/glow border */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-sky-500 to-purple-500 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500" />
+                <img
+                  src="/profile.png"
+                  alt="Priyanshu Pandey"
+                  className="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-2 border-zinc-800 bg-zinc-900 shadow-2xl"
+                />
+              </div>
+              <div className="flex flex-col justify-center">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight font-sans">
+                  Priyanshu Pandey
+                </h1>
+                <p className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-purple-400 font-mono text-sm md:text-base font-semibold mt-1.5 uppercase tracking-wider">
+                  Software Engineer & Architect
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  <span className="text-[10px] bg-zinc-900 border border-zinc-800 px-2 py-0.5 text-zinc-400 font-mono rounded">JAVA / SPRING BOOT</span>
+                  <span className="text-[10px] bg-zinc-900 border border-zinc-800 px-2 py-0.5 text-zinc-400 font-mono rounded">DISTRIBUTED SYSTEMS</span>
+                  <span className="text-[10px] bg-zinc-900 border border-zinc-800 px-2 py-0.5 text-zinc-400 font-mono rounded">AI INTEGRATION</span>
+                </div>
+              </div>
+            </motion.div>
 
-            {/* Subheadline */}
+            {/* Adjusted Professional Bottom Text / Summary */}
             <motion.p
               variants={itemVariants}
-              className="text-zinc-400 text-lg md:text-xl font-normal leading-relaxed max-w-2xl"
+              className="text-zinc-400 text-base md:text-lg font-normal leading-relaxed max-w-2xl border-l border-zinc-800 pl-4 mt-2"
             >
-              B.Tech CSE student specializing in Java, Spring Boot, Distributed Systems, and AI-powered applications.
+              Designing and building high-performance, scalable backend systems and intelligent automation. B.Tech CSE student specializing in Java development, Spring Boot microservices, containerized deployments, and AI integrations.
             </motion.p>
 
             {/* CTAs */}
@@ -130,55 +148,95 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 hidden lg:block"
           >
-            <div className="border border-zinc-800 bg-zinc-950 p-6 font-mono text-xs text-zinc-400 shadow-2xl relative">
+            <div className="border border-zinc-800 bg-zinc-950 p-6 font-mono text-xs text-zinc-400 shadow-2xl relative hover:border-zinc-700 transition-all duration-300 group">
+              {/* Subtle top color gradient bar to represent coding colors */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-500 via-sky-500 to-purple-500 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+              
               {/* Card headers */}
               <div className="flex items-center justify-between pb-4 border-b border-zinc-900 mb-6">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-zinc-800" />
-                  <span className="w-2 h-2 rounded-full bg-zinc-800" />
-                  <span className="w-2 h-2 rounded-full bg-zinc-800" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-colors" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 hover:bg-emerald-500 transition-colors" />
                 </div>
-                <span className="text-[10px] text-zinc-600">system_stats.sh</span>
+                <span className="text-[10px] text-zinc-500 font-semibold tracking-wider">system_stats.sh</span>
               </div>
 
-              {/* Data listing */}
-              <div className="space-y-4">
+              {/* Shell Prompt simulated session */}
+              <div className="flex items-center gap-2 text-[11px] mb-6 pb-4 border-b border-zinc-900/50">
+                <span className="text-emerald-400">priyanshu</span>
+                <span className="text-zinc-600">@</span>
+                <span className="text-sky-400">portfolio</span>
+                <span className="text-zinc-500">:</span>
+                <span className="text-purple-400">~</span>
+                <span className="text-zinc-600">$</span>
+                <span className="text-zinc-200 font-semibold">./system_stats.sh --all</span>
+              </div>
+
+              {/* Data listing (styled like a configuration file with syntax highlighting) */}
+              <div className="space-y-5">
                 <div>
-                  <span className="text-zinc-600"># Current Architecture Focus</span>
-                  <p className="text-zinc-100 font-semibold mt-1">Distributed Microservices, REST APIs, AI Inference</p>
-                </div>
-                <div>
-                  <span className="text-zinc-600"># Core Systems Stack</span>
-                  <p className="text-zinc-100 mt-1">Java / Spring Boot / PostgreSQL / Docker / AWS</p>
-                </div>
-                <div>
-                  <span className="text-zinc-600"># Competitive Programming</span>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-100 text-[10px]">CodeChef 2★</span>
-                    <span className="text-zinc-500">Active CP participant & problem solver</span>
+                  <div className="text-zinc-500 mb-1"># Current Architecture Focus</div>
+                  <div className="flex flex-wrap items-center">
+                    <span className="text-sky-400">FOCUS</span>
+                    <span className="text-pink-500 mx-1.5">=</span>
+                    <span className="text-amber-300">"Distributed Microservices, REST APIs, AI Inference"</span>
                   </div>
                 </div>
+
                 <div>
-                  <span className="text-zinc-600"># Key Capabilities</span>
-                  <ul className="list-none space-y-1 mt-1.5 text-zinc-300">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-zinc-700" />
-                      Multithreading & Concurrency
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-zinc-700" />
-                      Genetic Scheduling Algorithms
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-zinc-700" />
-                      Sentiment Analysis Dashboard
-                    </li>
-                  </ul>
+                  <div className="text-zinc-500 mb-1"># Core Systems Stack</div>
+                  <div className="flex flex-wrap items-center">
+                    <span className="text-sky-400">STACK</span>
+                    <span className="text-pink-500 mx-1.5">=</span>
+                    <span className="text-yellow-500">[</span>
+                    <span className="text-amber-300">"Java"</span><span className="text-zinc-500">, </span>
+                    <span className="text-amber-300">"Spring Boot"</span><span className="text-zinc-500">, </span>
+                    <span className="text-amber-300">"PostgreSQL"</span><span className="text-zinc-500">, </span>
+                    <span className="text-amber-300">"Docker"</span><span className="text-zinc-500">, </span>
+                    <span className="text-amber-300">"AWS"</span>
+                    <span className="text-yellow-500">]</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-zinc-500 mb-1"># Competitive Programming</div>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span className="text-sky-400">CODECHEF_RATING</span>
+                    <span className="text-pink-500">=</span>
+                    <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-amber-400 text-[10px] font-bold">2★</span>
+                    <span className="text-zinc-500"># Active solver & participant</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-zinc-500 mb-1"># Key Capabilities</div>
+                  <div className="space-y-1.5 pl-2 border-l border-zinc-900">
+                    <div className="flex flex-wrap items-center">
+                      <span className="text-purple-400">CAP_CONCURRENCY</span>
+                      <span className="text-pink-500 mx-1.5">=</span>
+                      <span className="text-amber-300">"Multithreading & Concurrency"</span>
+                    </div>
+                    <div className="flex flex-wrap items-center">
+                      <span className="text-purple-400">CAP_ALGORITHMS</span>
+                      <span className="text-pink-500 mx-1.5">=</span>
+                      <span className="text-amber-300">"Genetic Scheduling Algorithms"</span>
+                    </div>
+                    <div className="flex flex-wrap items-center">
+                      <span className="text-purple-400">CAP_AI_DASHBOARD</span>
+                      <span className="text-pink-500 mx-1.5">=</span>
+                      <span className="text-amber-300">"Sentiment Analysis Dashboard"</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-8 pt-4 border-t border-zinc-900 flex justify-between items-center text-[10px] text-zinc-600">
-                <span>STATUS: OK</span>
+              {/* Status and SSH footer */}
+              <div className="mt-8 pt-4 border-t border-zinc-900 flex justify-between items-center text-[10px] text-zinc-500">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>STATUS: ACTIVE_DAEMON</span>
+                </span>
                 <span>SECURE_SHELL v2.4</span>
               </div>
             </div>
